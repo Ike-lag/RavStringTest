@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
+    {% seo %}
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="{{ '/' | relative_url }}" class="nav-logo">
+                    <img src="{{ '/assets/images/logo-placeholder.svg' | relative_url }}" alt="{{ site.title }}" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="{{ '/the-rso' | relative_url }}">The Ravenna Strings</a>
+                    <a href="{{ '/conductors' | relative_url }}">Conductors</a>
+                    <a href="{{ '/the-r2so' | relative_url }}">The Ravenna String Sinfonia</a>
+                    <a href="{{ '/register' | relative_url }}">Register</a>
+                    <a href="{{ '/concerts' | relative_url }}">Concerts & Schedules</a>
+                    <a href="{{ '/about' | relative_url }}">Our Story</a>
+                    <a href="{{ '/donate' | relative_url }}">Donate</a>
+                </div>
+                <button class="mobile-menu-button" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="banner">
+        <img src="{{ '/assets/images/new_header.svg' | relative_url }}" alt="{{ site.title }}" class="banner-img">
+    </div>
+
+    {% if page.layout == 'home' %}
+    <header class="hero">
+        <div class="hero-content">
+            <h1>{{ site.title }}</h1>
+            <p class="hero-subtitle">{{ site.description }}</p>
+            <div class="hero-buttons">
+                <a href="{{ '/register' | relative_url }}" class="button primary">Join Us</a>
+                <a href="{{ '/concerts' | relative_url }}" class="button secondary">Upcoming Concerts</a>
+            </div>
+        </div>
+    </header>
+    {% endif %}
+
+    <main class="site-content">
+        <div class="container">
+            {{ content }}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/groups/183579296312/" target="_blank" rel="noopener noreferrer">
+                        <img src="{{ '/assets/images/facebook_logo.png' | relative_url }}" alt="Facebook" class="social-icon">
+                    </a>
+                </div>
+                <p class="copyright">&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
