@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register | The Ravenna String Orchestras</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="scripts/site.js" defer></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <meta name="robots" content="noindex, nofollow">   <!-- DRAFT COPY: keep out of search results -->
+    <meta name="description" content="Ravenna Strings is a community orchestra based in Seattle. Our musicians perform classical and contemporary music quarterly.">
+    <meta name="keywords" content="Ravenna Strings Orchestra, Ravenna Strings, Seattle, Orchestra, Classical Music, Contemporary Music, Community Orchestra">
+    <meta property="og:title" content="Register | The Ravenna String Orchestras">
+    <meta property="og:description" content="Ravenna Strings is a community orchestra based in Seattle. Our musicians perform classical and contemporary music quarterly.">
+    <meta property="og:image" content="https://ravennastrings.org/image/banner.gif">
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+</head>
+<body class="mobile-sheets">
+
+<!--HEADER: SAME ON EVERY PAGE. COPY CHANGES TO ALL PAGES
+    (except aria-current="page", which marks the page you're on)-->
+<header class="site-bar">
+    <a class="site-logo" href="index.html"><img src="image/stand/rs_logo_small.jpg" alt="Ravenna Strings home" width="160" height="225"></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-links">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Menu</span>
+    </button>
+    <nav class="site-links" id="site-links" aria-label="Main">
+        <a href="concert.html">Concerts &amp; Schedules</a>
+        <a href="register.html" aria-current="page">Register</a>
+        <a href="About_Us.html">Our Story</a>
+        <a href="orchestras.html">Our Orchestras</a>
+        <a class="site-donate" href="donate.html">Donate</a>
+    </nav>
+</header>
+
+<!--END HEADER-->
+
+<main class="front">
+    <div class="sheets">
+        <article class="page-sheet">
+            <h1>Register</h1>
+
+            <p><strong>Welcome to Ravenna Strings!</strong></p>
+
+            <p>
+                Click <strong>Register</strong> below to register and pay through Stripe.
+            </p>
+
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Regular</th>
+                        <th>Reduced</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>One term</th>
+                        <td>$150</td>
+                        <td>$90</td>
+                    </tr>
+                    <tr>
+                        <th>Full season (3 terms)</th>
+                        <td>$450</td>
+                        <td>$270</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <strong>Reduced</strong> fees are for seniors, students, etc.
+            </p>
+
+            <p>
+                To pay a different amount, click <strong>Change amount</strong> in Stripe.
+                This can be used for fewer sessions, an additional contribution, or other circumstances.
+            </p>
+
+            <p>
+                <strong>Please include your name, instrument, and orchestra (Monday or Thursday).</strong>
+            </p>
+
+            <div class="center">
+                <stripe-buy-button
+                    buy-button-id="buy_btn_1TDQt4FUwXsqxbcqkNO9cCNk"
+                    publishable-key="pk_live_51OAylmFUwXsqxbcqQMpQEJ8a4EEpIte8jaNJGZKBKdRAf9V5GU7TztFXrarbpKq79GpojRjXs215mZ2vDt9Erm3f00jwCznAHc"
+                >
+                </stripe-buy-button>
+            </div>
+        </article>
+
+        <div class="desk-column">
+            <figure class="snapshot magnet">
+                <img src="image/photos/filler-2.jpg" alt="The orchestra in concert">
+            </figure>
+        </div>
+    </div>
+</main>
+<div class="front-pole" aria-hidden="true"></div>
+
+<!--FOOTER: SAME ON EVERY PAGE. COPY CHANGES TO ALL PAGES-->
+<footer>
+    <a class="donate-button" href="donate.html">Donate</a>
+    <a href="mailto:ravennastrings@gmail.com">ravennastrings@gmail.com</a>
+    <a href="https://www.facebook.com/groups/183579296312/"><img src="image/facebook_logo.png" alt="Our Facebook group"></a>
+</footer>
+<!--END FOOTER-->
+
+</body>
+</html>
