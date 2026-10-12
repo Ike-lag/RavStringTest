@@ -553,6 +553,35 @@ main.front::after {
 .page-turn-next:hover { transform: rotate(2deg) translateX(3px); }
 .page-turn-back:hover { transform: rotate(-2deg) translateX(-3px); }
 
+/* About Us: more room above the orchestra photo so its tape clears the
+   text (desktop) */
+@media (min-width: 641px) {
+    #our-story .snapshot.float-right {
+        width: 42%;
+    }
+
+    #our-story .snapshot:last-child {
+        margin: 32px 6px 0;
+    }
+}
+
+/* About Us: the two concert photos are set into the text, one on each
+   side, so the text wraps around them */
+#about-us .about-photo-1 {
+    float: left;
+    width: 52%;
+    margin: 18px 24px 12px 4px;
+    --tilt: -3deg;
+}
+
+#about-us .about-photo-2 {
+    clear: both;
+    float: right;
+    width: 58%;
+    margin: 22px 4px 0 0;
+    --tilt: 2.5deg;
+}
+
 /* Our Orchestras */
 #conductors .snapshot.float-right {
     width: 34%;
@@ -1060,6 +1089,13 @@ footer img {
 
     .page-turn {
         display: none;
+    }
+
+    #about-us .about-photo-1,
+    #about-us .about-photo-2 {
+        float: none;
+        width: auto;
+        margin: 22px 8px;
     }
 
     .page-sheet .snapshot.float-right {
