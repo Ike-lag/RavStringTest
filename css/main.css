@@ -400,11 +400,11 @@ main.front {
     max-width: min(1400px, 100% - 16px);   /* room for the lip's overhang */
     margin: 28px auto 0;
     padding: 44px 36px 12px;   /* sheets run down just behind the lip */
-    /* leaning back like a real stand: pivots on the top edge, so the bottom
-       comes slightly toward you (and a little wider) */
+    /* The stand looks like it leans back because image/stand/stand-front.svg
+       is drawn narrower at the top. (No 3D transforms here: they make the
+       browser render the page as an image, which blurs the text on many
+       screens.) */
     z-index: 1;
-    transform: perspective(4000px) rotateX(6deg);
-    transform-origin: 50% 0;
 }
 
 /* the dark panel of the stand */
@@ -486,10 +486,9 @@ main.front::after {
     background: url(../image/stand/page-1.svg) center / 100% 100% no-repeat;
     font-size: 15.5px;
     line-height: 1.47;
-    /* the sheets lean against the stand with their bottoms resting out on
-       the lip: they sit a little lower and further forward than the stand,
-       and tip toward you a little more than it does */
-    transform: perspective(1600px) translateY(-24px) translateZ(14px) rotateX(3.5deg) rotate(var(--tilt, 0deg));
+    /* the sheets rest on the lip, in front of it. Flat 2D only - see the
+       note on main.front about 3D transforms and blurry text. */
+    transform: translateY(8px) rotate(var(--tilt, 0deg));
     transform-origin: 50% 0;
 }
 
