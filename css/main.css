@@ -12,6 +12,7 @@
     box-sizing: border-box;
 }
 
+html,
 body {
     overflow-x: clip;   /* the leaning stand is a touch wider at the bottom */
     margin: 0;
@@ -85,10 +86,47 @@ h1, h2, h3 {
 
 .site-links a:hover,
 .site-links a:focus-visible,
+.site-links a.is-linked,
 .site-links a[aria-current="page"] {
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 4px;
+}
+
+/* "Our Story" with its "Archives" dropdown */
+.nav-group {
+    position: relative;
+}
+
+.nav-sub {
+    position: absolute;
+    top: 100%;
+    left: -14px;
+    z-index: 20;
+    padding: 10px 14px;
+    white-space: nowrap;
+    background: url(../image/stand/paper-note.svg) center / 100% 100% no-repeat;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-4px) rotate(-1.5deg);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+
+/* invisible bridge so the menu stays open while the mouse moves down */
+.nav-sub::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 12px;
+}
+
+.nav-group:hover .nav-sub,
+.nav-group:focus-within .nav-sub {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(6px) rotate(-1.5deg);
 }
 
 /* Donate as a little paper note, like the one on the stand */
@@ -104,7 +142,8 @@ h1, h2, h3 {
 }
 
 .site-links .site-donate:hover,
-.site-links .site-donate:focus-visible {
+.site-links .site-donate:focus-visible,
+.site-links .site-donate.is-linked {
     color: #000;
     text-decoration: none;
     transform: rotate(-3deg) translateY(-2px);
@@ -185,7 +224,8 @@ body.home {
 }
 
 .sheet:hover,
-.sheet:focus-visible {
+.sheet:focus-visible,
+.sheet.is-linked {
     transform: translateY(-2.5cqw);
 }
 
@@ -295,7 +335,8 @@ body.home {
 }
 
 .note:hover,
-.note:focus-visible {
+.note:focus-visible,
+.note.is-linked {
     transform: rotate(var(--tilt)) scale(1.08);
 }
 
@@ -580,6 +621,39 @@ main.front::after {
     width: 58%;
     margin: 22px 4px 0 0;
     --tilt: 2.5deg;
+}
+
+/* Our Story archive: posters and programs taped to the sheets */
+.archive-sheet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.archive-sheet h2 {
+    align-self: stretch;
+}
+
+.archive-sheet .poster {
+    margin: 10px 0 0;
+    max-width: 92%;
+}
+
+.archive-sheet .poster img {
+    width: auto;
+    max-width: 100%;
+    max-height: 520px;
+}
+
+.archive-sheet .poster:nth-of-type(odd)  { --tilt: -2deg; }
+.archive-sheet .poster:nth-of-type(even) { --tilt: 2deg; }
+
+/* two items on one sheet: share the height */
+.archive-sheet .poster:nth-last-of-type(2) img,
+.archive-sheet .poster:nth-last-of-type(2) ~ .poster img {
+    max-height: 265px;
 }
 
 /* Our Orchestras */
@@ -916,6 +990,26 @@ footer img {
         border-bottom: 1px solid #e4e0da;
     }
 
+    .has-menu .nav-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .has-menu .nav-sub {
+        position: static;
+        visibility: visible;
+        opacity: 1;
+        padding: 0 0 0 20px;
+        background: none;
+        transform: none;
+        transition: none;
+    }
+
+    .has-menu .nav-sub a {
+        display: block;
+        font-size: 17px;
+    }
+
     .has-menu .site-links .site-donate {
         align-self: flex-start;
         margin-top: 16px;
@@ -996,7 +1090,8 @@ footer img {
     .sheet-4 { top: 47cqw; --tilt: 16deg; aspect-ratio: 62.77 / 85.43; }
 
     .sheet:hover,
-    .sheet:focus-visible {
+    .sheet:focus-visible,
+    .sheet.is-linked {
         transform: translateX(3cqw) rotate(var(--tilt));
     }
 

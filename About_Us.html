@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>About Us | The Ravenna String Orchestras</title>
+    <title>Our Story | The Ravenna String Orchestras</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
     <meta name="robots" content="noindex, nofollow">   <!-- DRAFT COPY: keep out of search results -->
     <meta name="description" content="Ravenna Strings is a community orchestra based in Seattle. Our musicians perform classical and contemporary music quarterly.">
     <meta name="keywords" content="Ravenna Strings Orchestra, Ravenna Strings, Seattle, Orchestra, Classical Music, Contemporary Music, Community Orchestra">
-    <meta property="og:title" content="About Us | The Ravenna String Orchestras">
+    <meta property="og:title" content="Our Story | The Ravenna String Orchestras">
     <meta property="og:description" content="Ravenna Strings is a community orchestra based in Seattle. Our musicians perform classical and contemporary music quarterly.">
     <meta property="og:image" content="https://ravennastrings.org/image/LorraineJudy.jpg">
 </head>
@@ -32,7 +32,12 @@
     <nav class="site-links" id="site-links" aria-label="Main">
         <a href="concert.html">Concerts &amp; Schedules</a>
         <a href="register.html">Register</a>
-        <a href="About_Us.html" aria-current="page">About Us</a>
+        <div class="nav-group">
+            <a href="About_Us.html" aria-current="page">Our Story</a>
+            <div class="nav-sub">
+                <a href="About_Us.html#archives">Our Archives</a>
+            </div>
+        </div>
         <a href="orchestras.html">Our Orchestras</a>
         <a class="site-donate" href="donate.html">Donate</a>
     </nav>
@@ -41,9 +46,11 @@
 <!--END HEADER-->
 
 <main class="front">
-    <div class="sheets">
+    <!-- data-*-label: what the page-turn buttons say on the first page
+         (see scripts/site.js) -->
+    <div class="sheets" data-first-next-label="Our Archives →" data-second-back-label="← Our Story">
         <article class="page-sheet" id="about-us">
-            <h1>About Us</h1>
+            <h1>Our Story</h1>
             <p>
                 <B>The Ravenna String Orchestras</B> operate with the belief that the best music comes when you are playing fun repertoire with your 
                 friends. This has kept us going strong since 1996, and we hope well into the future! 
@@ -64,7 +71,7 @@
         </article>
 
         <article class="page-sheet" id="our-story">
-            <h2>Our Story</h2>
+            <h2>Our History</h2>
             <figure class="snapshot taped float-right">
                 <img src="image/LorraineJudy.jpg" alt="Lorraine Hughes and Judy Drake" width="149" height="169">
             </figure>
@@ -93,6 +100,43 @@
             <figure class="snapshot taped">
                 <img src="image/PanoramaOrchestra.jpg" alt="The orchestra in concert">
                 <figcaption>Photo by Colin Shannon-Garvey</figcaption>
+            </figure>
+        </article>
+
+        <!-- ARCHIVE: old posters and programs, newest first. Each pair of
+             sheets is one "page" of the stand; the Next page button appears
+             automatically. To add a year, copy a pair of <article> blocks. -->
+        <article class="page-sheet archive-sheet" id="archives">
+            <h2>2025&ndash;26 Season</h2>
+            <figure class="snapshot taped poster">
+                <img src="image/03_20_2026_concert_flyer.jpeg" alt="Poster: Winter concert, Friday March 20, 2026, St. Andrew's Episcopal Church">
+                <figcaption>Winter Concert &middot; March 20, 2026</figcaption>
+            </figure>
+        </article>
+
+        <article class="page-sheet archive-sheet">
+            <figure class="snapshot taped poster">
+                <img src="image/ravennaflyer.jpeg" alt="Poster: Spring Concert, Wednesday June 3, St. Andrew's Episcopal Church">
+                <figcaption>Spring Concert &middot; June 3, 2026</figcaption>
+            </figure>
+            <figure class="snapshot taped poster">
+                <img src="image/04_05_2026_signup_flyer.jpeg" alt="Flyer: Make music with us! No auditions">
+                <figcaption>Spring sign-up flyer</figcaption>
+            </figure>
+        </article>
+
+        <article class="page-sheet archive-sheet">
+            <h2>Earlier Years</h2>
+            <figure class="snapshot taped poster">
+                <img src="image/RS 2022.jpeg" alt="The Ravenna Strings in concert, 2022">
+                <figcaption>The Ravenna Strings, 2022</figcaption>
+            </figure>
+        </article>
+
+        <article class="page-sheet archive-sheet">
+            <figure class="snapshot taped poster">
+                <img src="image/flyer11-15.jpg" alt="Poster: Ravenna Strings and Ravenna Second Strings Fall Concert, Wednesday November 15">
+                <figcaption>Fall Concert &middot; November 15</figcaption>
             </figure>
         </article>
     </div>
