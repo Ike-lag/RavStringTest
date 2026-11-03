@@ -30,15 +30,20 @@
         <span class="visually-hidden">Menu</span>
     </button>
     <nav class="site-links" id="site-links" aria-label="Main">
+        <div class="nav-group">
+            <a href="orchestras.html">Our Orchestras</a>
+            <div class="nav-sub">
+                <a href="conductors.html">Conductors</a>
+            </div>
+        </div>
         <a href="concert.html">Concerts &amp; Schedules</a>
         <a href="register.html">Register</a>
         <div class="nav-group">
-            <a href="About_Us.html" aria-current="page">Our Story</a>
+            <a href="about_us.html" aria-current="page">Our Story</a>
             <div class="nav-sub">
-                <a href="About_Us.html#archives">Our Archives</a>
+                <a href="about_us.html#archives">Our Archives</a>
             </div>
         </div>
-        <a href="orchestras.html">Our Orchestras</a>
         <a class="site-donate" href="donate.html">Donate</a>
     </nav>
 </header>
@@ -103,42 +108,48 @@
             </figure>
         </article>
 
-        <!-- ARCHIVE: old posters and programs, newest first. Each pair of
-             sheets is one "page" of the stand; the Next page button appears
-             automatically. To add a year, copy a pair of <article> blocks. -->
-        <article class="page-sheet archive-sheet" id="archives">
-            <h2>2025&ndash;26 Season</h2>
-            <figure class="snapshot taped poster">
-                <img src="image/03_20_2026_concert_flyer.jpeg" alt="Poster: Winter concert, Friday March 20, 2026, St. Andrew's Episcopal Church">
-                <figcaption>Winter Concert &middot; March 20, 2026</figcaption>
-            </figure>
-        </article>
+        <!-- On desktop this wrapper is invisible to the layout (the sheets
+             sit on the stand like any others); on phones it becomes a
+             swipeable row. -->
+        <p class="archive-hint">Our Archives <span>&mdash; swipe &rarr;</span></p>
+        <div class="archive">
+            <!-- ARCHIVE: old posters and programs, newest first. Each pair of
+                 sheets is one "page" of the stand; the Next page button appears
+                 automatically. To add a year, copy a pair of <article> blocks. -->
+            <article class="page-sheet archive-sheet" id="archives">
+                <h2>2025&ndash;26 Season</h2>
+                <figure class="snapshot taped poster">
+                    <img src="image/03_20_2026_concert_flyer.jpeg" alt="Poster: Winter concert, Friday March 20, 2026, St. Andrew's Episcopal Church">
+                    <figcaption>Winter Concert &middot; March 20, 2026</figcaption>
+                </figure>
+            </article>
 
-        <article class="page-sheet archive-sheet">
-            <figure class="snapshot taped poster">
-                <img src="image/ravennaflyer.jpeg" alt="Poster: Spring Concert, Wednesday June 3, St. Andrew's Episcopal Church">
-                <figcaption>Spring Concert &middot; June 3, 2026</figcaption>
-            </figure>
-            <figure class="snapshot taped poster">
-                <img src="image/04_05_2026_signup_flyer.jpeg" alt="Flyer: Make music with us! No auditions">
-                <figcaption>Spring sign-up flyer</figcaption>
-            </figure>
-        </article>
+            <article class="page-sheet archive-sheet">
+                <figure class="snapshot taped poster">
+                    <img src="image/ravennaflyer.jpeg" alt="Poster: Spring Concert, Wednesday June 3, St. Andrew's Episcopal Church">
+                    <figcaption>Spring Concert &middot; June 3, 2026</figcaption>
+                </figure>
+                <figure class="snapshot taped poster">
+                    <img src="image/04_05_2026_signup_flyer.jpeg" alt="Flyer: Make music with us! No auditions">
+                    <figcaption>Spring sign-up flyer</figcaption>
+                </figure>
+            </article>
 
-        <article class="page-sheet archive-sheet">
-            <h2>Earlier Years</h2>
-            <figure class="snapshot taped poster">
-                <img src="image/RS 2022.jpeg" alt="The Ravenna Strings in concert, 2022">
-                <figcaption>The Ravenna Strings, 2022</figcaption>
-            </figure>
-        </article>
+            <article class="page-sheet archive-sheet">
+                <h2>Earlier Years</h2>
+                <figure class="snapshot taped poster">
+                    <img src="image/RS 2022.jpeg" alt="The Ravenna Strings in concert, 2022">
+                    <figcaption>The Ravenna Strings, 2022</figcaption>
+                </figure>
+            </article>
 
-        <article class="page-sheet archive-sheet">
-            <figure class="snapshot taped poster">
-                <img src="image/flyer11-15.jpg" alt="Poster: Ravenna Strings and Ravenna Second Strings Fall Concert, Wednesday November 15">
-                <figcaption>Fall Concert &middot; November 15</figcaption>
-            </figure>
-        </article>
+            <article class="page-sheet archive-sheet">
+                <figure class="snapshot taped poster">
+                    <img src="image/flyer11-15.jpg" alt="Poster: Ravenna Strings and Ravenna Second Strings Fall Concert, Wednesday November 15">
+                    <figcaption>Fall Concert &middot; November 15</figcaption>
+                </figure>
+            </article>
+        </div>
     </div>
 </main>
 <div class="front-pole" aria-hidden="true"></div>

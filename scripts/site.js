@@ -32,7 +32,7 @@ var sheets = stand && stand.querySelector('.sheets');
 if (sheets) {
     // distance from one pair of sheets to the next
     function spreadWidth() {
-        var items = sheets.children;
+        var items = sheets.querySelectorAll('.page-sheet, .desk-column');
         return items.length > 2 ? items[2].offsetLeft - items[0].offsetLeft : sheets.clientWidth;
     }
 
@@ -70,17 +70,17 @@ if (sheets) {
         back.textContent = (spread === 1 && sheets.dataset.secondBackLabel) || '\u2190 Previous page';
     }
 
-    // a link like About_Us.html#archives opens the stand at that sheet
+    // a link like about_us.html#archives opens the stand at that sheet
     function showLinkedSheet(instant) {
         var target = location.hash && document.getElementById(location.hash.slice(1));
-        if (!target || target.parentElement !== sheets) return;
+        if (!target || !sheets.contains(target)) return;
         // phones stack the sheets: just scroll down to it (again after the
         // photos above have loaded and pushed it further down)
         if (getComputedStyle(sheets).overflowX === 'visible') {
             target.scrollIntoView();
             return;
         }
-        var index = Array.prototype.indexOf.call(sheets.children, target);
+        var index = Array.prototype.indexOf.call(sheets.querySelectorAll('.page-sheet, .desk-column'), target);
         goToSpread(Math.floor(index / 2), instant);
         window.scrollTo(0, 0);   // keep the whole stand in view
     }
@@ -123,4 +123,61 @@ if (standLinks.length) {
 
     Array.prototype.forEach.call(standLinks, pair);
     Array.prototype.forEach.call(headerLinks, pair);
+}
+
+// Archive posters and programs: tap or click one to see it full size.
+var zoomable = document.querySelectorAll('.archive-sheet .poster img');
+
+if (zoomable.length) {
+    var viewer = document.createElement('div');
+    viewer.className = 'lightbox';
+    viewer.hidden = true;
+    viewer.setAttribute('role', 'dialog');
+    viewer.setAttribute('aria-modal', 'true');
+    viewer.setAttribute('aria-label', 'Enlarged image');
+    viewer.innerHTML =
+        '<button type="button" class="lightbox-close" aria-label="Close">×</button>' +
+        '<figure><img alt=""><figcaption></figcaption></figure>';
+    document.body.appendChild(viewer);
+
+    var bigImg = viewer.querySelector('img');
+    var bigCaption = viewer.querySelector('figcaption');
+    var closeButton = viewer.querySelector('.lightbox-close');
+    var opener = null;
+
+    function openViewer(img) {
+        opener = img;
+        bigImg.src = img.currentSrc || img.src;
+        bigImg.alt = img.alt;
+        var caption = img.closest('figure').querySelector('figcaption');
+        bigCaption.textContent = caption ? caption.textContent : '';
+        viewer.hidden = false;
+        document.body.classList.add('lightbox-open');
+        closeButton.focus();
+    }
+
+    function closeViewer() {
+        viewer.hidden = true;
+        document.body.classList.remove('lightbox-open');
+        if (opener) opener.focus();
+    }
+
+    Array.prototype.forEach.call(zoomable, function (img) {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', 'Enlarge: ' + img.alt);
+        img.addEventListener('click', function () { openViewer(img); });
+        img.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openViewer(img);
+            }
+        });
+    });
+
+    // tap anywhere (or press Escape) to close
+    viewer.addEventListener('click', closeViewer);
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !viewer.hidden) closeViewer();
+    });
 }

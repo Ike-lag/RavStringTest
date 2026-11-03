@@ -438,6 +438,7 @@ blockquote cite {
 
 main.front {
     position: relative;
+    container-type: inline-size;   /* lets .board match the sheets' height */
     max-width: min(1400px, 100% - 16px);   /* room for the lip's overhang */
     margin: 28px auto 0;
     padding: 44px 36px 12px;   /* sheets run down just behind the lip */
@@ -508,7 +509,8 @@ main.front::after {
     display: none;
 }
 
-.sheets > :nth-child(odd) {
+.sheets > :nth-child(odd),
+.archive > .page-sheet:nth-of-type(odd) {
     scroll-snap-align: start;
 }
 
@@ -533,12 +535,15 @@ main.front::after {
     transform-origin: 50% 0;
 }
 
-.sheets > .page-sheet:nth-child(even) {
+.sheets > .page-sheet:nth-child(even),
+.archive > .page-sheet:nth-of-type(even) {
     background-image: url(../image/stand/page-2.svg);
 }
 
-.sheets > :nth-child(odd)  { --tilt: -0.5deg; }
-.sheets > :nth-child(even) { --tilt: 0.6deg; }
+.sheets > :nth-child(odd),
+.archive > .page-sheet:nth-of-type(odd)  { --tilt: -0.5deg; }
+.sheets > :nth-child(even),
+.archive > .page-sheet:nth-of-type(even) { --tilt: 0.6deg; }
 
 /* photos and notes stuck straight onto the stand, in place of a sheet */
 .desk-column {
@@ -623,6 +628,15 @@ main.front::after {
     --tilt: 2.5deg;
 }
 
+/* the archive wrapper: no effect on desktop, a swipeable row on phones */
+.archive {
+    display: contents;
+}
+
+.archive-hint {
+    display: none;
+}
+
 /* Our Story archive: posters and programs taped to the sheets */
 .archive-sheet {
     display: flex;
@@ -656,6 +670,229 @@ main.front::after {
     max-height: 265px;
 }
 
+/* archive images can be tapped to enlarge (scripts/site.js) */
+.archive-sheet .poster img {
+    cursor: zoom-in;
+}
+
+.archive-sheet .poster img:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(20, 20, 20, 0.88);
+    cursor: zoom-out;
+}
+
+.lightbox figure {
+    margin: 0;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 100%;
+    max-height: calc(100vh - 90px);
+    max-height: calc(100svh - 90px);
+    border: 8px solid #fff;
+    object-fit: contain;
+}
+
+.lightbox figcaption {
+    margin-top: 10px;
+    color: #fff;
+    font-family: var(--sheet-font);
+    font-size: 17px;
+    text-align: center;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    padding: 0 8px;
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 40px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.lightbox[hidden] {
+    display: none;
+}
+
+/* heading shown above the sheets on phones only (e.g. "Our Conductors") */
+.mobile-title {
+    display: none;
+}
+
+body.lightbox-open {
+    overflow: hidden;
+}
+
+/* Our Orchestras: the summary note centred at the top with a photo on
+   each side, and the two orchestra notes below, each as wide as a sheet on
+   the other pages. The board is exactly as tall as two sheets, so the
+   stand is the same size as on every other page. */
+.board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    align-content: center;
+    padding-bottom: 34px;   /* room under the cards for the pinned note */
+    grid-template-areas:
+        "photo-l summary summary photo-r"
+        "left    left    right   right";
+    gap: 30px 40px;   /* 40px across = the gap between sheets */
+    /* grows taller only if the text needs it (narrow windows) */
+    min-height: calc((100cqw - 40px) / 2 * 11 / 8.5);
+    position: relative;
+}
+
+/* small pinned note, centred over the bottom corners of the two cards */
+.pinned-note {
+    grid-row: 2;
+    grid-column: 2 / 4;
+    align-self: end;
+    justify-self: center;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 14px 26px 12px;
+    border: 2px solid transparent;
+    background: url(../image/stand/paper-note.svg) center / 100% 100% no-repeat border-box;
+    font-family: var(--sheet-font);
+    font-weight: 700;
+    font-size: 19px;
+    white-space: nowrap;
+    transform: translateY(55%) rotate(-3deg);
+}
+
+.pinned-note::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    margin-left: -11px;
+    background: url(../image/stand/magnet.svg) center / 100% 100% no-repeat;
+}
+
+.board-summary     { grid-area: summary; --tilt: -0.6deg; }
+.board-left        { grid-area: left;    --tilt: -0.8deg; }
+.board-right       { grid-area: right;   --tilt: 0.7deg; }
+.board-photo-left  { grid-area: photo-l; align-self: center; --tilt: -3deg; }
+.board-photo-right { grid-area: photo-r; align-self: center; --tilt: 2.5deg; }
+
+/* the side photos are much bigger than their column: they hang a little
+   off the outer edges of the stand and tuck behind the summary card
+   (desktop) */
+@media (min-width: 641px) {
+    .board .board-photo-left,
+    .board .board-photo-right {
+        width: 155%;
+        z-index: 0;
+    }
+
+    /* not a matched pair: same height, but different sizes, tilts and magnets */
+    .board .board-photo-left {
+        width: 162%;
+        justify-self: start;
+        align-self: center;
+        margin: 0 0 0 -34px;
+        --tilt: -4.5deg;
+    }
+
+    .board .board-photo-right {
+        width: 138%;
+        justify-self: end;
+        align-self: center;
+        margin: 0 -22px 0 0;
+        --tilt: 1.5deg;
+    }
+
+    .board .board-photo-left::before  { left: 34%; }
+    .board .board-photo-right::before { left: 63%; }
+
+    .board-summary {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.page-sheet.board-note {
+    aspect-ratio: auto;
+    padding: 24px 30px 30px;
+    font-size: 16px;
+}
+
+/* the two orchestra cards are the same height */
+.board-left,
+.board-right {
+    align-self: stretch;
+}
+
+.board-note h1,
+.board-note h2 {
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Conductors: one conductor per sheet, with the photo of the two of them
+   taped across the middle of the stand, overlapping both sheets */
+.conductor .role {
+    margin-top: -4px;
+    text-align: center;
+    font-style: italic;
+}
+
+main.front > .conductors-together {
+    position: absolute;
+    bottom: 0;   /* standing upright on the lip, just below the sheets */
+    left: 50%;
+    z-index: 5;
+    width: 36cqw;
+    --tilt: 0deg;
+    transform: translateX(-50%);
+}
+
+/* Nathan's conducting photo tips the other way from Joseph's */
+#nathan .conductor-action {
+    --tilt: 1.2deg;
+}
+
+/* empty space in each sheet's inner corner, where the photo sits */
+.photo-gap {
+    display: block;
+    width: calc(18.5cqw - 42px);
+    height: 44cqw;
+}
+
+.photo-gap-right { float: right; margin-left: 18px; }
+.photo-gap-left  { float: left;  margin-right: 18px; }
+
+.conductor .conductor-action {
+    /* sits beside the joint photo, in whatever width is left */
+    display: flow-root;
+    width: auto;
+    margin: 18px 6px 0;
+    --tilt: -2deg;
+}
+
 /* Our Orchestras */
 #conductors .snapshot.float-right {
     width: 34%;
@@ -680,6 +917,69 @@ main.front::after {
 
 .details dd {
     margin: 0;
+}
+
+/* a plain white postcard announcing the next concert (until there's a
+   poster) */
+.postcard {
+    position: relative;
+    margin: 40px 18px 34px;
+    padding: 30px 24px 26px;
+    border: 2px solid transparent;
+    background: url(../image/stand/photo-frame.svg) center / 100% 100% no-repeat border-box;
+    text-align: center;
+    transform: rotate(-2deg);
+}
+
+/* a strip of tape at the top */
+.postcard::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 110px;
+    height: 26px;
+    margin-left: -55px;
+    background: url(../image/stand/tape.svg) center / 100% 100% no-repeat;
+    transform: rotate(3deg);
+}
+
+.postcard p {
+    margin: 0;
+}
+
+.postcard-kicker {
+    font-family: var(--sheet-font);
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.postcard-date {
+    margin-top: 14px !important;
+    font-family: var(--sheet-font);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.15;
+}
+
+.postcard-time {
+    font-family: var(--sheet-font);
+    font-size: 24px;
+}
+
+.postcard-place {
+    margin-top: 16px !important;
+    font-size: 16px;
+}
+
+.postcard-note {
+    margin-top: 18px !important;
+    padding-top: 12px;
+    border-top: 1px solid #ccc;
+    font-size: 14px;
+    font-style: italic;
 }
 
 /* the rehearsal schedule */
@@ -1151,7 +1451,7 @@ footer img {
     .sheets {
         grid-auto-flow: row;
         grid-auto-columns: auto;
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);   /* never wider than the screen */
         row-gap: 32px;
         overflow: visible;
         margin: 0;
@@ -1183,6 +1483,107 @@ footer img {
     }
 
     .page-turn {
+        display: none;
+    }
+
+    .mobile-title {
+        display: block;
+        margin: 4px 0 18px;
+        text-align: center;
+        font-size: 32px;
+    }
+
+    /* schedule: tighter spacing so both orchestras' dates fit side by side */
+    .page-sheet:has(.term) {
+        padding-left: 16px;
+        padding-right: 14px;
+    }
+
+    .term-groups {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 0 12px;
+    }
+
+    .term h4 {
+        font-size: 15px;
+    }
+
+    .dates {
+        width: auto;
+        column-gap: 6px;
+        font-size: 14px;
+    }
+
+    /* Our Story: the archive sheets become a swipeable carousel */
+    .archive {
+        display: flex;
+        gap: 18px;
+        margin: 0 -14px;
+        padding: 6px 14px 20px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 14px;
+        scrollbar-width: none;
+        align-items: flex-start;
+    }
+
+    .archive::-webkit-scrollbar {
+        display: none;
+    }
+
+    .archive > .page-sheet {
+        flex: 0 0 86%;
+        scroll-snap-align: center;
+    }
+
+    .archive-hint {
+        display: block;
+        margin: 8px 0 -14px;
+        color: var(--stand);
+        font-family: var(--sheet-font);
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .archive-hint span {
+        font-family: Georgia, serif;
+        font-weight: normal;
+        font-style: italic;
+        font-size: 15px;
+    }
+
+    .board {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "summary summary"
+            "photo-l photo-l"
+            "left    left"
+            "photo-r photo-r"
+            "right   right";
+        height: auto;
+        gap: 30px 16px;
+    }
+
+    .pinned-note {
+        position: relative;
+        grid-column: 1 / -1;
+        justify-self: center;
+        left: auto;
+        bottom: auto;
+        grid-row: auto;
+        align-self: auto;
+        margin-top: -46px;   /* overlaps the bottom of the card above */
+        transform: rotate(-3deg);
+    }
+
+    main.front > .conductors-together {
+        position: static;
+        width: 80%;
+        margin: 0 auto 32px;
+        transform: rotate(var(--tilt));
+    }
+
+    .photo-gap {
         display: none;
     }
 
