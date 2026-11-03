@@ -1384,7 +1384,10 @@ footer img {
         transform: rotate(var(--tilt));
     }
 
-    .sheet-1 { top: -1cqw; --tilt: 12deg; aspect-ratio: 86.18 / 96.62; }
+    /* phones: a straighter sheet shape (Our Orchestras') and a gentler tilt,
+       so the two-line label stays on the paper */
+    .sheet-1 { top: -1cqw; --tilt: 13deg; aspect-ratio: 62.77 / 85.43; }
+    .sheet-1::before { background-image: url(../image/stand/sheet-4-full.svg); }
     .sheet-2 { top: 17cqw; --tilt: 15deg; aspect-ratio: 68.13 / 84.49; }
     .sheet-3 { top: 34cqw; --tilt: 12deg; aspect-ratio: 59.67 / 83.64; }
     .sheet-4 { top: 47cqw; --tilt: 16deg; aspect-ratio: 62.77 / 85.43; }
@@ -1396,7 +1399,9 @@ footer img {
     }
 
     /* labels moved in from the left edge of the page so they clear the stand */
-    .sheet-1 span { left: 30%; top: 8%;  width: 46%; }
+    /* the label art is drawn slanted (it came from a slanted sheet), so
+       straighten it to sit square on this page */
+    .sheet-1 span { left: 30%; top: 8%;  width: 56%; transform: rotate(7deg); }
     .sheet-2 span { left: 32%; top: 9%;  width: 46%; }
     .sheet-3 span { left: 32%; top: 7%;  width: 58%; }
     .sheet-4 span { left: 32%; top: 7%;  width: 60%; }
