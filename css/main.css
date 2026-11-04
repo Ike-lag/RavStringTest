@@ -577,6 +577,12 @@ main.front::after {
 .page-sheet h2 { --clef: url(../image/stand/clef-bass.svg); --clef-size: 24px; }
 .page-sheet section h2 { --clef: url(../image/stand/clef-alto.svg); --clef-size: 24px; }
 
+/* each heading picks its clef, so treble, alto and bass get roughly equal
+   use across the site (class="clef-treble", "clef-alto" or "clef-bass") */
+.page-sheet .clef-treble { --clef: url(../image/stand/clef-treble.svg); --clef-size: 44px; }
+.page-sheet .clef-alto   { --clef: url(../image/stand/clef-alto.svg);   --clef-size: 30px; }
+.page-sheet .clef-bass   { --clef: url(../image/stand/clef-bass.svg);   --clef-size: 24px; }
+
 /* turn-page tabs (added by scripts/site.js when a page has more sheets) */
 .page-turn {
     position: absolute;
